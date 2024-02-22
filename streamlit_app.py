@@ -35,13 +35,16 @@ if prompt := st.chat_input("What is up?"):
         _, context = topk_retrieval(
             ids=get_chunk_ids(), query=prompt, index=database, k=5
         )
-        stream = client.chat.completions.create(
-            model=st.session_state["openai_model"],
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
-        response = st.write_stream(stream)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+        prompt=""
+        for m in st.session_state.messages:
+            if m["role"] == "user":
+                prompt = m["content"]
+
+        rag_stream, gpt_stream = get_chat_answer(
+            prompt, context, chat_model='RAG-gpt-35')
+        
+        rag_response = st.write_stream(rag_stream)
+        gpt_response = st.write_stream(gpt_stream)
+    
+    st.session_state.messages.append({"role": "assistant", "content": rag_response})
+    st.session_state.messages.append({"role": "assistant", "content": gpt_response})

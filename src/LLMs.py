@@ -2,7 +2,7 @@ import os
 from openai import AzureOpenAI
 import streamlit as st
 
-def get_chat_answer(prompt, context, chat_model = "RAG-gpt-35", st = st):
+def get_chat_answer(prompt, context, chat_model = "RAG-gpt-35"):
     '''
     This function returns the response from the RAG model and the GPT-3.5 model
     
@@ -25,7 +25,7 @@ def get_chat_answer(prompt, context, chat_model = "RAG-gpt-35", st = st):
     RAG_context = "Here are text similar to the query from extra backstory of League of Legends. Use them to guide your response as long as they align with the prompt in some degree: \n In the game League of Legends, "
     for i in range(len(context)):
         RAG_context += f" {context[i]}"
-    print(RAG_context)
+    # print(RAG_context)
 
     messages = [
     {"role": "system", "content": "You are a gaming encyclopedia."},
@@ -49,4 +49,4 @@ def get_chat_answer(prompt, context, chat_model = "RAG-gpt-35", st = st):
         stream = True
     )
 
-    return rag_answer.choices[0].message.content, gpt_answer.choices[0].message.content
+    return rag_answer, gpt_answer

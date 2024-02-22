@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import os
 
 from src.embedding import get_embedding
 
@@ -38,7 +39,10 @@ def topk_retrieval(ids:list, query:str, index, k:int=5):
     return topk_similarity, topk_metadata
 
 def get_chunk_ids(csv_path:str='../data/champion_names.csv'):
-    ids = pd.read_csv(csv_path)
+    parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_name_path = os.path.join(parent_dir, 'data/champion_names.csv')
+    
+    ids = pd.read_csv(csv_name_path)
     ids = ids['champion_with_number'].values.tolist()
     return ids
 

@@ -66,5 +66,16 @@ def store_data():
 
     return index
 
+def get_index():
+    '''
+    This function returns the index
+    '''
+    index_name = 'rag'
+    api_key = os.environ.get('PINECONE_API_KEY') or 'PINECONE_API_KEY'
+    pc = Pinecone(api_key=api_key)
+    index = pc.Index(index_name)
+
+    return index
+
     
     

@@ -1,5 +1,6 @@
 from openai import AzureOpenAI   
 import os
+import streamlit as st
 
 def get_embedding(text, model="RAG-Embedding"):
    '''
@@ -12,12 +13,11 @@ def get_embedding(text, model="RAG-Embedding"):
    Returns:
    embedding: list
    '''
-   print("这是API KEY")
-   print(os.getenv("AZURE_OPENAI_KEY"))
+
    client = AzureOpenAI(
-        api_key=os.getenv("AZURE_OPENAI_KEY"),  
-        api_version=os.getenv("OPENAI_API_VERSION"),
-        azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
+        api_key=st.secrets["AZURE_OPENAI_KEY"],  
+        api_version=st.secrets["OPENAI_API_VERSION"],
+        azure_endpoint=st.secrets["AZURE_OPENAI_ENDPOINT"]
     )
    text = text.replace("\n", " ")
    return client.embeddings.create(input = [text], model=model).data[0].embedding
