@@ -22,13 +22,13 @@ def get_chat_answer(prompt, context, chat_model = "RAG-gpt-35"):
         api_version=os.getenv("OPENAI_API_VERSION"),
         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
     )
-    RAG_context = "Here are text similar to the query from extra backstory of League of Legends. Use them to guide your response as long as they align with the prompt in some degree: \n In the game League of Legends, "
+    RAG_context = "Here are chunks similar to the prompt from extra backstory of League of Legends. You must use them to guide your response as long as they align with the prompt in some degree: \n In the game League of Legends, "
     for i in range(len(context)):
         RAG_context += f" {context[i]}"
     # print(RAG_context)
 
     messages = [
-    {"role": "system", "content": "You are a gaming encyclopedia."},
+    {"role": "system", "content": "You are a person who are very familar League of Legends, and you are good at summry from the chunks."},
     {"role": "user", "content": prompt},
     {"role": "assistant", "content": RAG_context}
   ]
