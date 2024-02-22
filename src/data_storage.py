@@ -40,7 +40,11 @@ def store_data():
     '''
     This function stores the processed data into pinecone vector database and returns the index
     '''
-    processed_df = data_processing()
+    print("找到当前路径")
+    print(os.getcwd())
+    print(os.path.dirname(__file__))
+    csv_path = os.path.join(os.path.dirname(__file__), '/champions_lore.csv')
+    processed_df = data_processing(csv_path=csv_path)
 
     # initialize connection to pinecone (get API key at app.pc.io)
     api_key = os.environ.get('PINECONE_API_KEY') or 'PINECONE_API_KEY'
