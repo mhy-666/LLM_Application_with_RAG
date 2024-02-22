@@ -12,6 +12,8 @@ def get_embedding(text, model="RAG-Embedding"):
    Returns:
    embedding: list
    '''
+   print("这是API KEY")
+   print(os.getenv("AZURE_OPENAI_KEY"))
    client = AzureOpenAI(
         api_key=os.getenv("AZURE_OPENAI_KEY"),  
         api_version=os.getenv("OPENAI_API_VERSION"),

@@ -6,6 +6,8 @@ import pandas as pd
 from pinecone import Pinecone
 import os
 
+
+    
 def data_processing(csv_path:str='../data/champions_lore.csv'):
     '''
     This function processes the data and returns a DataFrame with the processed data
@@ -15,7 +17,11 @@ def data_processing(csv_path:str='../data/champions_lore.csv'):
     new_df = chunk_story(df, chunk_size=1000, overlap_size=200)
     new_df['champion'] = new_df['champion'].str.replace("[’\s]", "", regex=True)
     new_df['champion_with_number'] = new_df['champion'] + (new_df.groupby('champion').cumcount() + 1).astype(str)
-    new_df['champion_with_number'].to_csv('../data/champion_names.csv', index=False)
+    
+    parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_name_path = os.path.join(parent_dir, 'data/champion_names.csv')
+    
+    new_df['champion_with_number'].to_csv(csv_name_path, index=False)
 
     final_df = get_df_embeddings(new_df, model='RAG-Embedding')
 
@@ -40,10 +46,8 @@ def store_data():
     '''
     This function stores the processed data into pinecone vector database and returns the index
     '''
-    print("找到当前路径")
-    print(os.getcwd())
-    print(os.path.dirname(__file__))
-    csv_path = os.path.join(os.path.dirname(__file__), '/champions_lore.csv')
+    parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_path = os.path.join(parent_dir, 'data/champions_lore.csv')
     processed_df = data_processing(csv_path=csv_path)
 
     # initialize connection to pinecone (get API key at app.pc.io)
