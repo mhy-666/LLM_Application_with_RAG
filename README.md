@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project aims to create a Q&A system focused on the gaming domain, specifically for the game League of Legends (LoL), developed by Riot Games. As the game continuously updates and introduces new champions, some are not recognized by ChatGPT. To address this, the project involves scraping hero introductions from the official LoL website, using Retrieval-Augmented Generation (RAG) to create a corresponding vector database, and ultimately compiling an encyclopedia knowledgeable about new champions.
+This project aims to create a Q&A system focused on the gaming domain, specifically for the game League of Legends (LoL), developed by Riot Games. As the game continuously updates and introduces new champions, some are not recognized by ChatGPT. To address this, the project involves scraping champion introductions from the official LoL website, using Retrieval-Augmented Generation (RAG) to create a corresponding vector database, and ultimately compiling an encyclopedia knowledgeable about new champions.
 
 ## Implementation
 
@@ -11,7 +11,7 @@ This project aims to create a Q&A system focused on the gaming domain, specifica
 
 - **Champion Background Stories:** Using a web crawler, I scraped the background stories of all champions and saved them into a CSV file. **--web_scrapy.py**
 - **Data Processing:** Utilized pandas to read the data from the CSV file.-**data_extraction.py**
-- **Chunk Function:** Implemented a function that supports an overlap option, dividing each hero's story into chunks of no more than 1000 characters while ensuring sentences are not truncated. If an overlap size is specified, adjacent sentences can overlap by the specified number of characters. **--data_chunk.py**
+- **Chunk Function:** Implemented a function that supports an overlap option, dividing each champion's story into chunks of no more than 1000 characters while ensuring sentences are not truncated. If an overlap size is specified, adjacent sentences can overlap by the specified number of characters. **--data_chunk.py**
 
 ### Vector Database and Embeddings
 
